@@ -43,3 +43,4 @@ pols_month_gdp_joined = left_join(pols_month_data, gdp_data, key = date)
 pols_month_gdp_joined
 ```
 
+```{r}
