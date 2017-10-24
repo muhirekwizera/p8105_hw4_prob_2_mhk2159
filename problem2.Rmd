@@ -1,0 +1,43 @@
+---
+title: "Data Science I HW4 problem 2"
+author: "Muhire Honorine Kwizera"
+date: "10/24/2017"
+output: html_document
+---
+
+```{r load_packages, message = FALSE}
+library(readxl) # for reading excel files
+library(janitor) # for renaming variables according to R's guidelines
+library(dplyr) # the dplyr package for data transformation
+library(tidyverse) # for tidying data
+library(lubridate) # for dates
+```
+
+
+```{r read_pols_month}
+pols_month = read_csv("./data/fivethirtyeight_datasets/pols-month.csv")
+pols_month_data = pols_month %>%
+  clean_names() %>%
+  # create a president variable taking values gop and dem
+  mutate(president = recode(prez_gop, '0' = "dem", '1' = "gop")) %>%
+  mutate(date = floor_date(as.POSIXct(mon), "month")) %>%
+  # remove prez_dem, prez_gop, and mon
+  select(-prez_gop,-prez_dem, -mon) %>%
+  select(date, everything())
+pols_month_data
+```
+
+```{r read_gdp}
+gdp = read_csv("./data/fivethirtyeight_datasets/GDP.csv")
+gdp_data = gdp %>%
+  clean_names() %>%
+  mutate(date = floor_date(as.POSIXct(date), "month")) %>%
+  rename(gdp = value)
+gdp_data
+```
+
+```{r join_pols_month_gdp}
+pols_month_gdp_joined = left_join(pols_month_data, gdp_data, key = date)
+pols_month_gdp_joined
+```
+
