@@ -18,6 +18,8 @@ library(lubridate) # for dates
 pols_month = read_csv("./data/fivethirtyeight_datasets/pols-month.csv")
 pols_month_data = pols_month %>%
   clean_names() %>%
+  # Replace the values of prez_gop from August to December 1974 with 1
+  mutate(prez_gop = replace(prez_gop, prez_gop == "2", "1")) %>%
   # create a president variable taking values gop and dem
   mutate(president = recode(prez_gop, '0' = "dem", '1' = "gop")) %>%
   mutate(date = floor_date(as.POSIXct(mon), "month")) %>%
