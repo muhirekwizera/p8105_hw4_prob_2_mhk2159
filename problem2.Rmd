@@ -45,6 +45,6 @@ pols_month_gdp_joined
 
 ```{r}
 pols_month_gdp_joined %>%
-  ggplot(aes(x = date, y = gdp, color = president)) + geom_point() + scale_y_continuous(breaks = seq(min(gdp, na.rm= TRUE), max(gdp, na.rm=TRUE), 10))
+  ggplot(aes(x = date, y = gdp, color = president)) + geom_point() + scale_y_continuous(breaks = seq(-4, 20, 5))
 
 ```
