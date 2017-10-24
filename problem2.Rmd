@@ -30,7 +30,7 @@ pols_month_data
 ```
 
 ```{r read_gdp}
-gdp = read_csv("./data/fivethirtyeight_datasets/GDP.csv")
+gdp = read_csv("./data/fivethirtyeight_datasets/GDP.csv", na = c("."))
 gdp_data = gdp %>%
   clean_names() %>%
   mutate(date = floor_date(as.POSIXct(date), "month")) %>%
