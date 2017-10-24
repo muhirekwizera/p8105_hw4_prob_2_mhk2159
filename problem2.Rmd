@@ -44,3 +44,6 @@ pols_month_gdp_joined
 ```
 
 ```{r}
+pols_month_gdp_joined %>%
+  ggplot(aes(x = date, y = gdp, color = president)) + geom_point()
+```
